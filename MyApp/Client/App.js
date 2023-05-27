@@ -1,11 +1,9 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Login from "./Components/Login/Login.jsx";
-import Home from "./Components/Home/Home.jsx";
-import RegisterCharacter from "./Components/RegisterChurch/Register.jsx";
-import RegisterPark from "./Components/RegisterParks/Register.jsx";
-import Client from "./Components/Client/Register.jsx";
+import Login from "./Pages/Login/Login.jsx";
+import Home from "./Pages/Home/Home.jsx";
+import Reservation from "./Pages/Reservation/Reservation.jsx";
 
 const Stack = createStackNavigator();
 
@@ -13,6 +11,14 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        {
+          <Stack.Screen
+            name='/Reservation'
+            component={Reservation}
+            options={{ headerShown: false }}
+          />
+        }
+
         {
           <Stack.Screen
             name='Home'
@@ -25,30 +31,6 @@ function App() {
           <Stack.Screen
             name='/'
             component={Login}
-            options={{ headerShown: false }}
-          />
-        }
-
-        {
-          <Stack.Screen
-            name='RegisterPark'
-            component={RegisterPark}
-            options={{ headerShown: false }}
-          />
-        }
-
-        {
-          <Stack.Screen
-            name='RegisterChurch'
-            component={RegisterCharacter}
-            options={{ headerShown: false }}
-          />
-        }
-
-        {
-          <Stack.Screen
-            name='Client'
-            component={Client}
             options={{ headerShown: false }}
           />
         }

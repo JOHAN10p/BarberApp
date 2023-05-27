@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import styles from "./StyleHome.jsx";
-import Notification from "../../assets/Images/notificacion.png";
-import Logout from "../../assets/Images/logout.png";
 import Left from "../../assets/Images/arrowLeft.png";
 import Right from "../../assets/Images/arrowright.png";
-import Navbar from "../Navbar/Navbar.jsx";
+import Barber1 from "../../assets/Images/Barber1.jpg";
+import Barber2 from "../../assets/Images/barber2.jpg";
+import Barber3 from "../../assets/Images/barber3.jpg";
+import Barber4 from "../../assets/Images/Barber4.jpg";
+import Barber5 from "../../assets/Images/barber5.jpg";
+import TheBest from "../../assets/Images/TheBestBarber.jpeg";
+import Rating from "../../assets/Images/Rating.png";
+import Navbar from "../../Components/Navbar/Navbar.jsx";
 import { dd_dd_mm_Date } from "../../Utils/functions.js";
+import Header from "../../Components/Header/Header.jsx";
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,7 +22,7 @@ export default function Home() {
       content: (
         <>
           <View>
-            <Text> HELLO 1 </Text>
+            <Image style={styles.barbersCarruselImage} source={Barber1} />
           </View>
         </>
       ),
@@ -26,7 +32,7 @@ export default function Home() {
       content: (
         <>
           <View>
-            <Text> HELLO 2 </Text>
+            <Image style={styles.barbersCarruselImage} source={Barber2} />
           </View>
         </>
       ),
@@ -36,7 +42,29 @@ export default function Home() {
       content: (
         <>
           <View>
-            <Text> HELLO 3 </Text>
+            <Image style={styles.barbersCarruselImage} source={Barber3} />
+          </View>
+        </>
+      ),
+    },
+
+    {
+      id: 4,
+      content: (
+        <>
+          <View>
+            <Image style={styles.barbersCarruselImage} source={Barber4} />
+          </View>
+        </>
+      ),
+    },
+
+    {
+      id: 5,
+      content: (
+        <>
+          <View>
+            <Image style={styles.barbersCarruselImage} source={Barber5} />
           </View>
         </>
       ),
@@ -65,19 +93,7 @@ export default function Home() {
     <View style={styles.container}>
       <Navbar />
       <View style={styles.homeContainer}>
-        <View style={styles.containerHeader}>
-          <Text style={styles.companyName}>Prestigio Barber's</Text>
-          <View style={styles.containerIcons}>
-            <TouchableOpacity /* onPress={openCloseBooleanProfile} */>
-              <Image style={styles.notificationImage} source={Notification} />
-            </TouchableOpacity>
-
-            <TouchableOpacity /* onPress={openCloseBooleanProfile} */>
-              <Image style={styles.logoutImage} source={Logout} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
+        <Header />
         <View style={styles.containerNameDate}>
           <Text style={styles.name}>
             Hey, <Text style={styles.greeting}>Michael👋</Text>
@@ -86,9 +102,20 @@ export default function Home() {
         </View>
 
         <View style={styles.containerTheBestBarber}>
-          <Text>THE BEST BARBER</Text>
+          <Text style={styles.theBestText}>THE BEST BARBER</Text>
           <View style={styles.theBestBarber}>
-            <Text>Richard Anderson</Text>
+            <Image style={styles.theBestImage} source={TheBest} />
+            <View style={{ marginLeft: 15 }}>
+              <Text style={styles.theBestName}>Richard Anderson</Text>
+              <Text style={styles.containerRating}>
+                <Image style={styles.ratingImage} source={Rating} /> 4.6 (100)
+              </Text>
+            </View>
+            <TouchableOpacity>
+              <View style={styles.buttonView}>
+                <Text style={{ color: "white", fontWeight: "bold" }}>View</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
 

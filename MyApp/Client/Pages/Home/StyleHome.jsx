@@ -16,10 +16,11 @@ const styles = StyleSheet.create({
   },
 
   companyName: {
-    color: "#ffffff",
+    color: "#7e7a7a",
+    fontWeight: "bold",
     padding: 20,
     fontFamily: "Times New Roman",
-    fontSize: 20,
+    fontSize: 16,
     width: 200,
   },
 
@@ -57,10 +58,9 @@ const styles = StyleSheet.create({
   },
 
   containerNameDate: {
-    marginTop: 40,
+    marginTop: 10,
     height: 120,
     width: "60%",
-    backgroundColor: "#0000002b",
     borderRadius: 10,
     marginLeft: 10,
   },
@@ -89,8 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#0000002b",
-    marginTop: 12,
+    marginTop: 30,
     height: 200,
   },
 
@@ -103,10 +102,61 @@ const styles = StyleSheet.create({
   },
 
   theBestBarber: {
-    backgroundColor: "#ffffff",
-    width: "80%",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#ffffffa2",
+    width: "90%",
     height: "65%",
     borderRadius: 15,
+  },
+
+  theBestText: {
+    color: "#7e7a7a",
+    marginBottom: 10,
+    fontWeight: "bold",
+    width: "80%",
+  },
+
+  theBestImage: {
+    width: 55,
+    height: 55,
+    marginLeft: 10,
+    borderRadius: 10,
+  },
+
+  ratingImage: {
+    width: 15,
+    height: 15,
+    marginTop: 5,
+  },
+
+  containerRating: {
+    fontWeight: "bold",
+  },
+
+  buttonView: {
+    marginLeft: 25,
+    backgroundColor: "black",
+    width: 60,
+    height: 35,
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    fontSize: 14,
+  },
+
+  theBestName: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+
+  barbersCarruselImage: {
+    width: 250,
+    height: 180,
+    borderRadius: 10,
   },
 });
 
