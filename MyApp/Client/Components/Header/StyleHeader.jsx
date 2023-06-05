@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
 
   companyName: {
-    color: "#7e7a7a",
+    color: "#ffffff",
     fontWeight: "bold",
     padding: 20,
     fontFamily: "Times New Roman",
@@ -17,10 +17,12 @@ const styles = StyleSheet.create({
   },
 
   containerHeader: {
+    backgroundColor: "#00000068",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    zIndex: 1,
   },
 
   containerIcons: {
