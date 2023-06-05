@@ -11,6 +11,7 @@ import SelectBarber from "./SelectBarber/SelectBarber.jsx";
 import Header from "../../Components/Header/Header.jsx";
 import Barber from "../../assets/images/TheBestBarber.jpeg";
 import BarberBackground from "../../assets/Images/BlackBackground.jpg";
+import Navbar from "../../Components/Navbar/Navbar.jsx";
 
 const Reservation = () => {
   const [barberSelected, setBarberSelected] = useState(true);
@@ -53,6 +54,7 @@ const Reservation = () => {
             </View>
           </View>
         </ImageBackground>
+        <Navbar />
       </View>
     );
   } else {

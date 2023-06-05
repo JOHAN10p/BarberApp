@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
 
   barberImage: {
     width: "100%",
-    height: 320,
+    height: 300,
     position: "absolute",
-    top: -100,
+    top: -80,
     zIndex: -1,
   },
 
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 40,
+    marginTop: -10,
   },
 
   cards: {
