@@ -16,15 +16,16 @@ function App() {
       <Stack.Navigator>
         {
           <Stack.Screen
-            name='/Barbers'
-            component={Barbers}
+            name='/'
+            component={Login}
             options={{ headerShown: false }}
           />
         }
+
         {
           <Stack.Screen
-            name='/Reservation'
-            component={Reservation}
+            name='/Barbers'
+            component={Barbers}
             options={{ headerShown: false }}
           />
         }
@@ -36,6 +37,15 @@ function App() {
             options={{ headerShown: false }}
           />
         }
+
+        {
+          <Stack.Screen
+            name='/Reservation'
+            component={Reservation}
+            options={{ headerShown: false }}
+          />
+        }
+
         {
           <Stack.Screen
             name='/Products'
@@ -47,14 +57,6 @@ function App() {
           <Stack.Screen
             name='/Clients'
             component={Clients}
-            options={{ headerShown: false }}
-          />
-        }
-
-        {
-          <Stack.Screen
-            name='/'
-            component={Login}
             options={{ headerShown: false }}
           />
         }

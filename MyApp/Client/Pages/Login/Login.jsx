@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Text,
   TouchableOpacity,
+  Animated,
 } from "react-native";
 import barberShop from "../../assets/Images/iconBarberShop.png";
 import BarberBackground from "../../assets/Images/BlackBackground.jpg";
@@ -21,6 +22,8 @@ export default function Login() {
   const [EmailIngresado, setEmailIngresado] = useState("");
   const [PasswordIngresado, setPasswordIngresado] = useState("");
   const navigation = useNavigation();
+  const [rotation] = useState(new Animated.Value(0));
+
   const handlePasswordChange = (newPassword) => {
     setPasswordIngresado(newPassword);
   };
@@ -35,6 +38,8 @@ export default function Login() {
       PasswordValido === PasswordIngresado
     ) {
       navigation.navigate("Home");
+      setEmailIngresado("");
+      setPasswordIngresado("");
     } else if (!EmailIngresado.length && !PasswordIngresado.length) {
       Alert.alert("Error", "Please write the mail and password", [
         { text: "OK" },
@@ -50,6 +55,39 @@ export default function Login() {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.nativeEvent.key === "Enter") {
+      handleClickLogin();
+    }
+  };
+
+  useEffect(() => {
+    const animation = Animated.loop(
+      Animated.timing(rotation, {
+        toValue: 1,
+        duration: 30000,
+        useNativeDriver: true,
+      })
+    );
+
+    animation.start();
+
+    return () => {
+      animation.stop();
+    };
+  }, []);
+
+  const iconImageStyle = {
+    transform: [
+      {
+        rotate: rotation.interpolate({
+          inputRange: [0, 1],
+          outputRange: ["0deg", "360deg"],
+        }),
+      },
+    ],
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -57,7 +95,11 @@ export default function Login() {
         style={{ width: "100%", height: "100%", resizeMode: "cover" }}
         blurRadius={3}>
         <View style={styles.containerAllItems}>
-          <Image style={styles.imageNickelodeon} source={barberShop} />
+          <Animated.Image
+            style={[styles.iconImage, iconImageStyle]}
+            source={barberShop}
+          />
+
           <TextInput
             style={styles.inputs}
             placeholder='Enter email'
@@ -70,6 +112,7 @@ export default function Login() {
             secureTextEntry={true}
             value={PasswordIngresado}
             onChangeText={handlePasswordChange}
+            onKeyPress={handleKeyPress}
           />
           <TouchableOpacity
             style={styles.containerbutton}
@@ -90,7 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#16171B",
     fontFamily: "arial",
   },
-  imageNickelodeon: {
+  iconImage: {
     width: "45%",
     height: "45%",
     resizeMode: "contain",

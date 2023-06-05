@@ -7,58 +7,34 @@ const styles = StyleSheet.create({
     color: "#ffffff",
   },
 
-  containerTheBestBarber: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 20,
-    height: 100,
+  container: {
+    width: "100%",
+    height: "100vh",
+    backgroundColor: "black",
   },
 
-  theBestBarber: {
+  containerCarrusel: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#ffffffa2",
-    width: "90%",
-    height: "65%",
-    borderRadius: 15,
-    /* backdropFilter: "blur(10px)", // ajusta el valor de blur según tus preferencias */
+    justifyContent: "space-between",
+    marginTop: 150,
+    height: 200,
   },
 
-  theBestImage: {
-    width: 55,
-    height: 55,
-    marginLeft: 10,
-    borderRadius: 10,
-  },
-
-  ratingImage: {
-    width: 15,
-    height: 15,
+  logoutImage: {
+    width: 30,
+    height: 30,
+    resizeMode: "contain",
     marginTop: 5,
+    marginLeft: 5,
+    marginBottom: 6,
   },
 
-  containerRating: {
-    fontWeight: "bold",
-  },
-
-  buttonView: {
-    marginLeft: 25,
-    backgroundColor: "black",
-    width: 60,
-    height: 35,
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-    justifyContent: "center",
+  barbersCarruselImage: {
+    width: 250,
+    height: 250,
     borderRadius: 10,
-    fontSize: 14,
-  },
-
-  theBestName: {
-    fontSize: 18,
-    fontWeight: "bold",
   },
 });
 

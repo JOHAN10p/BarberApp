@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import styles from "./StyleHome.jsx";
 import Left from "../../assets/Images/arrowLeft.png";
 import Right from "../../assets/Images/arrowright.png";
@@ -13,6 +19,7 @@ import Rating from "../../assets/Images/Rating.png";
 import Navbar from "../../Components/Navbar/Navbar.jsx";
 import { dd_dd_mm_Date } from "../../Utils/functions.js";
 import Header from "../../Components/Header/Header.jsx";
+import BarberBackground from "../../assets/Images/SelectBarber.jpg";
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -92,43 +99,50 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Navbar />
-      <View style={styles.homeContainer}>
-        <Header />
-        <View style={styles.containerNameDate}>
-          <Text style={styles.name}>
-            Hey, <Text style={styles.greeting}>Michael👋</Text>
-          </Text>
-          <Text style={styles.date}>{dd_dd_mm_Date()}</Text>
-        </View>
+      <ImageBackground
+        source={BarberBackground}
+        style={{ width: "100%", height: "100%", resizeMode: "cover" }}
+        blurRadius={2}>
+        <View style={styles.homeContainer}>
+          <Header />
+          <View style={styles.containerNameDate}>
+            <Text style={styles.name}>
+              Hey, <Text style={styles.greeting}>Michael👋</Text>
+            </Text>
+            <Text style={styles.date}>{dd_dd_mm_Date()}</Text>
+          </View>
 
-        <View style={styles.containerTheBestBarber}>
-          <Text style={styles.theBestText}>THE BEST BARBER</Text>
-          <View style={styles.theBestBarber}>
-            <Image style={styles.theBestImage} source={TheBest} />
-            <View style={{ marginLeft: 15 }}>
-              <Text style={styles.theBestName}>Richard Anderson</Text>
-              <Text style={styles.containerRating}>
-                <Image style={styles.ratingImage} source={Rating} /> 4.6 (100)
-              </Text>
-            </View>
-            <TouchableOpacity>
-              <View style={styles.buttonView}>
-                <Text style={{ color: "white", fontWeight: "bold" }}>View</Text>
+          <View style={styles.containerTheBestBarber}>
+            <Text style={styles.theBestText}>THE BEST BARBER</Text>
+            <View style={styles.theBestBarber}>
+              <Image style={styles.theBestImage} source={TheBest} />
+              <View style={{ marginLeft: 15 }}>
+                <Text style={styles.theBestName}>Richard Anderson</Text>
+                <Text style={styles.containerRating}>
+                  <Image style={styles.ratingImage} source={Rating} /> 4.6 (100)
+                </Text>
               </View>
+              <TouchableOpacity>
+                <View style={styles.buttonView}>
+                  <Text style={{ color: "white", fontWeight: "bold" }}>
+                    View
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.containerCarrusel}>
+            <TouchableOpacity style={{ marginLeft: 10 }} onPress={prev}>
+              <Image style={styles.logoutImage} source={Left} />
+            </TouchableOpacity>
+            {items[currentIndex].content}
+            <TouchableOpacity style={{ marginRight: 10 }} onPress={next}>
+              <Image style={styles.logoutImage} source={Right} />
             </TouchableOpacity>
           </View>
         </View>
-
-        <View style={styles.containerCarrusel}>
-          <TouchableOpacity style={{ marginLeft: 10 }} onPress={prev}>
-            <Image style={styles.logoutImage} source={Left} />
-          </TouchableOpacity>
-          {items[currentIndex].content}
-          <TouchableOpacity style={{ marginRight: 10 }} onPress={next}>
-            <Image style={styles.logoutImage} source={Right} />
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ImageBackground>
     </View>
   );
 }

@@ -11,31 +11,39 @@ import { useNavigation } from "@react-navigation/native";
 export default function Navbar() {
   const navigation = useNavigation();
 
-  const GoLogin = () => {
-    navigation.navigate("/");
+  const GoReservation = () => {
+    navigation.navigate("/Reservation");
   };
 
-  const GoClient = () => {
-    navigation.navigate("Client");
+  const GoClients = () => {
+    navigation.navigate("/Clients");
+  };
+
+  const GoProducts = () => {
+    navigation.navigate("/Products");
+  };
+
+  const GoBarbers = () => {
+    navigation.navigate("/Barbers");
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.containerNavbar}>
         <View style={styles.containerAllItems}>
-          <TouchableOpacity /* onPress={openCloseBooleanProfile} */>
+          <TouchableOpacity onPress={GoBarbers}>
             <Image style={styles.barberImage} source={Barber} />
           </TouchableOpacity>
 
-          <TouchableOpacity /* onPress={openCloseDropList} */>
+          <TouchableOpacity onPress={GoClients}>
             <Image style={styles.ClientImage} source={Client} />
           </TouchableOpacity>
 
-          <TouchableOpacity /* onPress={openCloseBooleanProfile} */>
+          <TouchableOpacity onPress={GoProducts}>
             <Image style={styles.productImage} source={Product} />
           </TouchableOpacity>
 
-          <TouchableOpacity /* onPress={openCloseBooleanProfile} */>
+          <TouchableOpacity onPress={GoReservation}>
             <Image style={styles.reservationImage} source={Reservation} />
           </TouchableOpacity>
         </View>

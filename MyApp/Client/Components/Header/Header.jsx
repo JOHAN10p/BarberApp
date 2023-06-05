@@ -3,8 +3,14 @@ import styles from "./StyleHeader.jsx";
 import Notification from "../../assets/Images/notificacion.png";
 import Logout from "../../assets/Images/logout.png";
 import { View, Text, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Header = () => {
+  const navigation = useNavigation();
+
+  const GoLogin = () => {
+    navigation.navigate("/");
+  };
   return (
     <View style={styles.containerHeader}>
       <Text style={styles.companyName}>PRESTIGIO BARBER'S</Text>
@@ -12,7 +18,7 @@ const Header = () => {
         <TouchableOpacity /* onPress={openCloseBooleanProfile} */>
           <Image style={styles.notificationImage} source={Notification} />
         </TouchableOpacity>
-        <TouchableOpacity /* onPress={openCloseBooleanProfile} */>
+        <TouchableOpacity onPress={GoLogin}>
           <Image style={styles.logoutImage} source={Logout} />
         </TouchableOpacity>
       </View>

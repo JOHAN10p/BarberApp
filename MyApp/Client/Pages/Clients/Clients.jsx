@@ -105,9 +105,7 @@ const Clients = () => {
         }}
         blurRadius={10}>
         <Header />
-        <View style={styles.text}>
-          <Text>HELLOS</Text>
-        </View>
+
         {/* ----------------------- */}
         <View style={styles.containerCarrusel}>
           <TouchableOpacity style={{ marginLeft: 10 }} onPress={prev}>
