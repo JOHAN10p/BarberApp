@@ -7,6 +7,7 @@ import Reservation from "./Pages/Reservation/Reservation.jsx";
 import Products from "./Pages/Products/Products.jsx";
 import Clients from "./Pages/Clients/Clients.jsx";
 import Barbers from "./Pages/Barbers/SelectBarber.jsx";
+import Manage from "./Pages/Dashboard/Manage.jsx";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,21 @@ function App() {
           <Stack.Screen
             name='/'
             component={Login}
+            options={{ headerShown: false }}
+          />
+        }
+        {
+          <Stack.Screen
+            name='/Manage'
+            component={Manage}
+            options={{ headerShown: false }}
+          />
+        }
+
+        {
+          <Stack.Screen
+            name='/Reservation'
+            component={Reservation}
             options={{ headerShown: false }}
           />
         }
@@ -34,14 +50,6 @@ function App() {
           <Stack.Screen
             name='Home'
             component={Home}
-            options={{ headerShown: false }}
-          />
-        }
-
-        {
-          <Stack.Screen
-            name='/Reservation'
-            component={Reservation}
             options={{ headerShown: false }}
           />
         }

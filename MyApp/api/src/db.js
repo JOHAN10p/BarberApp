@@ -9,7 +9,7 @@ const path = require("path");
 
 // Generamos la ruta de conexión para sequelize...
 const sequelize = new Sequelize(
-  `postgres://postgres:Leiderposada10-@localhost:5432/nickelodeon`,
+  `postgres://postgres:Leiderposada10-@localhost:5432/dbbarberprod`,
   {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed

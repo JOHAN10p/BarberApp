@@ -2,25 +2,38 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   return sequelize.define(
-    "park",
+    "local",
     {
-      ParkId: {
+      IdLocal: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-
-      ParkName: {
+      NameLocal: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      LocalImage1: {
         type: DataTypes.STRING,
         allowNull: false,
       },
 
-      ParkNeighborhood: {
+      LocalImage2: {
         type: DataTypes.STRING,
         allowNull: false,
       },
 
-      DirectionPark: {
+      LocalImage3: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      LocalImage4: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      LocalImage5: {
         type: DataTypes.STRING,
         allowNull: false,
       },

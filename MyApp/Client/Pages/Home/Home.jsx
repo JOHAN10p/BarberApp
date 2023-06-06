@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,77 +6,49 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import axios from "axios";
 import styles from "./StyleHome.jsx";
 import Left from "../../assets/Images/arrowLeft.png";
 import Right from "../../assets/Images/arrowright.png";
-import Barber1 from "../../assets/Images/Barber1.jpg";
-import Barber2 from "../../assets/Images/barber2.jpg";
-import Barber3 from "../../assets/Images/barber3.jpg";
-import Barber4 from "../../assets/Images/Barber4.jpg";
-import Barber5 from "../../assets/Images/barber5.jpg";
 import TheBest from "../../assets/Images/TheBestBarber.jpeg";
 import Rating from "../../assets/Images/Rating.png";
 import Navbar from "../../Components/Navbar/Navbar.jsx";
 import { dd_dd_mm_Date } from "../../Utils/functions.js";
 import Header from "../../Components/Header/Header.jsx";
 import BarberBackground from "../../assets/Images/SelectBarber.jpg";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Home() {
+  const navigation = useNavigation();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const items = [
-    {
-      id: 1,
-      content: (
-        <>
-          <View>
-            <Image style={styles.barbersCarruselImage} source={Barber1} />
-          </View>
-        </>
-      ),
-    },
-    {
-      id: 2,
-      content: (
-        <>
-          <View>
-            <Image style={styles.barbersCarruselImage} source={Barber2} />
-          </View>
-        </>
-      ),
-    },
-    {
-      id: 3,
-      content: (
-        <>
-          <View>
-            <Image style={styles.barbersCarruselImage} source={Barber3} />
-          </View>
-        </>
-      ),
-    },
+  const [user, setUser] = useState(null);
+  const [items, setItems] = useState([]);
+  const [barbers, setBarbers] = useState([]);
 
-    {
-      id: 4,
-      content: (
-        <>
-          <View>
-            <Image style={styles.barbersCarruselImage} source={Barber4} />
-          </View>
-        </>
-      ),
-    },
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3003/Local");
+      const images = response.data.images[0];
 
-    {
-      id: 5,
-      content: (
-        <>
-          <View>
-            <Image style={styles.barbersCarruselImage} source={Barber5} />
-          </View>
-        </>
-      ),
-    },
-  ];
+      if (images) {
+        const newItems = images.map((imageUrl, index) => ({
+          id: index + 1,
+          content: (
+            <View>
+              <Image
+                style={styles.barbersCarruselImage}
+                source={{ uri: imageUrl }}
+              />
+            </View>
+          ),
+        }));
+
+        setItems(newItems);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const next = () => {
     const nextIndex = currentIndex + 1;
@@ -96,6 +68,24 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+
+    fetchData();
+
+    fetch("http://localhost:3003/barber")
+      .then((response) => response.json())
+      .then((data) => setBarbers(data))
+      .catch((error) => console.log(error));
+  }, []);
+
+  const GoReservation = () => {
+    navigation.navigate("/Barbers");
+  };
+
   return (
     <View style={styles.container}>
       <Navbar />
@@ -107,7 +97,11 @@ export default function Home() {
           <Header />
           <View style={styles.containerNameDate}>
             <Text style={styles.name}>
-              Hey, <Text style={styles.greeting}>Michael👋</Text>
+              Hey,
+              <Text style={styles.greeting}>
+                {" "}
+                {user ? user.NameUser : ""}👋
+              </Text>
             </Text>
             <Text style={styles.date}>{dd_dd_mm_Date()}</Text>
           </View>
@@ -115,14 +109,20 @@ export default function Home() {
           <View style={styles.containerTheBestBarber}>
             <Text style={styles.theBestText}>THE BEST BARBER</Text>
             <View style={styles.theBestBarber}>
-              <Image style={styles.theBestImage} source={TheBest} />
+              <Image
+                style={styles.theBestImage}
+                source={{ uri: barbers[1]?.ImageBarber }}
+              />
               <View style={{ marginLeft: 15 }}>
-                <Text style={styles.theBestName}>Richard Anderson</Text>
+                <Text
+                  style={
+                    styles.theBestName
+                  }>{`${barbers[1]?.NameBarber} ${barbers[1]?.LastNameBarber} `}</Text>
                 <Text style={styles.containerRating}>
                   <Image style={styles.ratingImage} source={Rating} /> 4.6 (100)
                 </Text>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={GoReservation}>
                 <View style={styles.buttonView}>
                   <Text style={{ color: "white", fontWeight: "bold" }}>
                     View
@@ -136,7 +136,7 @@ export default function Home() {
             <TouchableOpacity style={{ marginLeft: 10 }} onPress={prev}>
               <Image style={styles.logoutImage} source={Left} />
             </TouchableOpacity>
-            {items[currentIndex].content}
+            {items.length > 0 && items[currentIndex]?.content}
             <TouchableOpacity style={{ marginRight: 10 }} onPress={next}>
               <Image style={styles.logoutImage} source={Right} />
             </TouchableOpacity>

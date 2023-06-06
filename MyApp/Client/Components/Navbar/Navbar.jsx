@@ -12,7 +12,7 @@ export default function Navbar() {
   const navigation = useNavigation();
 
   const GoReservation = () => {
-    navigation.navigate("/Reservation");
+    navigation.navigate("/Barbers");
   };
 
   const GoClients = () => {

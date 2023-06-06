@@ -1,22 +1,23 @@
 const { Router } = require("express");
 
 //--------------------------------------------------------------
-const CharactersRoutes = require("./Character.js");
-const PilotRoutes = require("./ChurchRegister.js");
-const TypeFlight = require("./TypeFlightR.js");
-const ParkRoute = require("./Parks.js");
-const ClientRoute = require("./ClientRoute.js");
+const login = require("./login.js");
+const Local = require("./Local.js");
+const User = require("./userR.js");
+const Barber = require("./BarberR.js");
+const Product = require("./ProductR.js");
 
 //--------------------------------------------------------------
 
 const router = Router();
 
 //--------------------------------------------------------------
-router.use("/Character", CharactersRoutes);
-router.use("/RegisterChurch", PilotRoutes);
-router.use("/Parks", ParkRoute);
-router.use("/RegisterTypeFlight", TypeFlight);
-router.use("/Client", ClientRoute);
+router.use("/login", login);
+router.use("/Local", Local);
+router.use("/user", User);
+router.use("/barber", Barber);
+router.use("/product", Product);
+
 //--------------------------------------------------------------
 
 module.exports = router;

@@ -2,17 +2,25 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   return sequelize.define(
-    "TypeFlight",
+    "product",
     {
-      IdTypeFlight: {
+      IdProduct: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
 
-      TypeFlightName: {
+      NameProduct: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+
+      ImageProduct: {
+        type: DataTypes.STRING,
+      },
+
+      TipoProduct: {
+        type: DataTypes.INTEGER,
       },
     },
     { timestamps: false }

@@ -2,49 +2,37 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   return sequelize.define(
-    "client",
+    "reservation",
     {
-      ClientId: {
+      IdReservation: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
 
-      NameClient: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-
-      DocumentType: {
+      IdHorario: {
         type: DataTypes.INTEGER,
-      },
-
-      Document: {
-        type: DataTypes.STRING,
         allowNull: false,
       },
 
-      Years: {
+      horario: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      estado: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0, // Valor por defecto para estado: deshabilitado
+        validate: {
+          isIn: [[0, 1]], // Validar que el estado solo sea 0 o 1
+        },
       },
-
-      Direction: {
-        type: DataTypes.STRING,
+      barberoId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
-
-      PhoneNumber: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-
-      Email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-
-      YearDescription: {
-        type: DataTypes.STRING,
+      usuarioId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },

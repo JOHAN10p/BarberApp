@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,74 +11,23 @@ import Header from "../../Components/Header/Header.jsx";
 import BarberBackground from "../../assets/Images/BlackBackground.jpg";
 import Left from "../../assets/Images/arrowLeft.png";
 import Right from "../../assets/Images/arrowright.png";
-import Barber1 from "../../assets/Images/Barber1.jpg";
-import Barber2 from "../../assets/Images/barber2.jpg";
-import Barber3 from "../../assets/Images/barber3.jpg";
-import Barber4 from "../../assets/Images/Barber4.jpg";
-import Barber5 from "../../assets/Images/barber5.jpg";
 import Navbar from "../../Components/Navbar/Navbar.jsx";
 
 const Clients = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [users, setUsers] = useState([]);
 
-  const items = [
-    {
-      id: 1,
-      content: (
-        <>
-          <View>
-            <Image style={styles.barbersCarruselImage} source={Barber1} />
-          </View>
-        </>
-      ),
-    },
-    {
-      id: 2,
-      content: (
-        <>
-          <View>
-            <Image style={styles.barbersCarruselImage} source={Barber2} />
-          </View>
-        </>
-      ),
-    },
-    {
-      id: 3,
-      content: (
-        <>
-          <View>
-            <Image style={styles.barbersCarruselImage} source={Barber3} />
-          </View>
-        </>
-      ),
-    },
-
-    {
-      id: 4,
-      content: (
-        <>
-          <View>
-            <Image style={styles.barbersCarruselImage} source={Barber4} />
-          </View>
-        </>
-      ),
-    },
-
-    {
-      id: 5,
-      content: (
-        <>
-          <View>
-            <Image style={styles.barbersCarruselImage} source={Barber5} />
-          </View>
-        </>
-      ),
-    },
-  ];
+  useEffect(() => {
+    // Fetch user data from the provided URL
+    fetch("http://localhost:3003/user")
+      .then((response) => response.json())
+      .then((data) => setUsers(data))
+      .catch((error) => console.log(error));
+  }, []);
 
   const next = () => {
     const nextIndex = currentIndex + 1;
-    if (nextIndex >= items.length) {
+    if (nextIndex >= users.length) {
       setCurrentIndex(0);
     } else {
       setCurrentIndex(nextIndex);
@@ -88,7 +37,7 @@ const Clients = () => {
   const prev = () => {
     const prevIndex = currentIndex - 1;
     if (prevIndex < 0) {
-      setCurrentIndex(items.length - 1);
+      setCurrentIndex(users.length - 1);
     } else {
       setCurrentIndex(prevIndex);
     }
@@ -111,7 +60,16 @@ const Clients = () => {
           <TouchableOpacity style={{ marginLeft: 10 }} onPress={prev}>
             <Image style={styles.logoutImage} source={Left} />
           </TouchableOpacity>
-          {items[currentIndex].content}
+
+          {users.length > 0 && (
+            <View>
+              <Image
+                style={styles.barbersCarruselImage}
+                source={{ uri: users[currentIndex].ImageUser }}
+              />
+            </View>
+          )}
+
           <TouchableOpacity style={{ marginRight: 10 }} onPress={next}>
             <Image style={styles.logoutImage} source={Right} />
           </TouchableOpacity>

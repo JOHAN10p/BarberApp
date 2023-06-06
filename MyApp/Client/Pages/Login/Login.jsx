@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   StyleSheet,
   View,
@@ -15,44 +16,71 @@ import BarberBackground from "../../assets/Images/BlackBackground.jpg";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Login() {
-  const [EmailValido, setEmailValido] = useState(
-    /* "JohanPosada@gmail.com" */ "ll"
-  );
-  const [PasswordValido, setPasswordValido] = useState(/* "1004369126" */ "ll");
-  const [EmailIngresado, setEmailIngresado] = useState("");
-  const [PasswordIngresado, setPasswordIngresado] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
   const navigation = useNavigation();
   const [rotation] = useState(new Animated.Value(0));
 
   const handlePasswordChange = (newPassword) => {
-    setPasswordIngresado(newPassword);
+    setPassword(newPassword);
+    setPasswordError(false);
   };
 
   const handleEmailChange = (newEmail) => {
-    setEmailIngresado(newEmail);
+    setEmail(newEmail);
   };
 
   const handleClickLogin = () => {
-    if (
-      EmailValido === EmailIngresado &&
-      PasswordValido === PasswordIngresado
-    ) {
-      navigation.navigate("Home");
-      setEmailIngresado("");
-      setPasswordIngresado("");
-    } else if (!EmailIngresado.length && !PasswordIngresado.length) {
-      Alert.alert("Error", "Please write the mail and password", [
-        { text: "OK" },
-      ]);
-    } else if (!EmailIngresado.length) {
-      Alert.alert("Error", "Please write the mail", [{ text: "OK" }]);
-    } else if (EmailIngresado !== EmailValido) {
-      Alert.alert("Error", "Wrong email", [{ text: "OK" }]);
-    } else if (!PasswordIngresado.length) {
-      Alert.alert("Error", "Please write the password", [{ text: "OK" }]);
-    } else if (PasswordIngresado !== PasswordValido) {
-      Alert.alert("Error", "Wrong password", [{ text: "OK" }]);
+    // Validar la contraseña utilizando una expresión regular
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[-_@#$%^&+=])(?!.*\s).{8,}$/;
+    const isValidPassword = passwordRegex.test(password);
+
+    if (!isValidPassword) {
+      setPasswordError(true);
+      return;
     }
+
+    axios
+      .post(
+        "http://localhost:3003/login",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        const data = response.data;
+        if (data.message === "Login successful") {
+          // Inicio de sesión exitoso, guardar la información del usuario en el localStorage
+          const user = data.user;
+          localStorage.setItem("user", JSON.stringify(user));
+
+          if (data.isRoot) {
+            // Usuario root, navegar a la pantalla de Dashboard
+            navigation.navigate("/Manage");
+          } else {
+            // Usuario no root, navegar a la pantalla de Home
+            navigation.navigate("Home");
+          }
+
+          setEmail("");
+          setPassword("");
+        } else {
+          // Error de inicio de sesión, mostrar mensaje de error
+          Alert.alert("Error", data.message, [{ text: "OK" }]);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("ANDA PASHA BOBO");
+      });
   };
 
   const handleKeyPress = (event) => {
@@ -65,7 +93,7 @@ export default function Login() {
     const animation = Animated.loop(
       Animated.timing(rotation, {
         toValue: 1,
-        duration: 30000,
+        duration: 25000,
         useNativeDriver: true,
       })
     );
@@ -103,17 +131,27 @@ export default function Login() {
           <TextInput
             style={styles.inputs}
             placeholder='Enter email'
-            value={EmailIngresado}
+            value={email}
             onChangeText={handleEmailChange}
           />
           <TextInput
-            style={[styles.inputs, styles.lastInput]}
+            style={[
+              styles.inputs,
+              styles.lastInput,
+              passwordError && styles.errorInput,
+            ]}
             placeholder='Enter password'
             secureTextEntry={true}
-            value={PasswordIngresado}
+            value={password}
             onChangeText={handlePasswordChange}
             onKeyPress={handleKeyPress}
           />
+          {passwordError && (
+            <Text style={styles.errorText}>
+              Password must contain at least 8 characters, including an
+              uppercase letter, a number, and a special character.
+            </Text>
+          )}
           <TouchableOpacity
             style={styles.containerbutton}
             onPress={handleClickLogin}>
@@ -162,6 +200,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
+  errorInput: {
+    borderColor: "red",
+  },
+
   containerbutton: {
     backgroundColor: "#BA9048",
     alignItems: "center",
@@ -177,5 +219,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontFamily: "arial",
     fontSize: 20,
+  },
+
+  errorText: {
+    color: "red",
+    fontSize: 14,
+    marginTop: 5,
   },
 });
